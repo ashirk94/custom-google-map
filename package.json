@@ -1,0 +1,22 @@
+{
+  "name": "custom-google-map",
+  "version": "1.0.0",
+  "description": "A google map api based module that uses a custom theme and markers with info windows.",
+  "main": "MapApplication.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashirk94/custom-google-map.git"
+  },
+  "keywords": [
+    "map"
+  ],
+  "author": "Alan Shirk, Skylar Borwieck, and OCDLA team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ashirk94/custom-google-map/issues"
+  },
+  "homepage": "https://github.com/ashirk94/custom-google-map#readme"
+}
