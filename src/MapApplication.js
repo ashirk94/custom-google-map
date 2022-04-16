@@ -249,3 +249,5 @@ const MapApplication = (function () {
 
   return MapApplication;
 })();
+
+export default MapApplication;
