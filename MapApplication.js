@@ -1,3 +1,5 @@
+import MapConfiguration from "./MapConfiguration";
+
 const MapApplication = (function () {
   const cache = [];
 
