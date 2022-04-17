@@ -142,3 +142,5 @@ const MapDatasources = (function () {
 
 	return MapDatasources;
 })();
+
+export default MapDatasources;
