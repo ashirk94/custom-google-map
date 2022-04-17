@@ -129,7 +129,7 @@ const MapApplication = (function () {
     // find the feature
     let f = this.features.find((element) => element.name == feature);
 
-    console.log(f);
+    //console.log(f); feature check
     // check its map property
     if (f.markers[0].map !== null) {
       return true;
