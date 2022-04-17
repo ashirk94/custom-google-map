@@ -58,3 +58,5 @@ const Location = (function () {
 
     return Location;
 })();
+
+export default Location;

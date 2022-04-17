@@ -45,3 +45,5 @@ const CustomMarker = (function () {
 
     return CustomMarker;
 })();
+
+export default CustomMarker;

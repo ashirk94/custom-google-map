@@ -30,3 +30,5 @@ const GoogleMarker = (function () {
 
     return GoogleMarker;
 })();
+
+export default GoogleMarker;

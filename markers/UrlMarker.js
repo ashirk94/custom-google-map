@@ -115,3 +115,5 @@ const UrlMarker = (function () {
 
     return UrlMarker;
 })();
+
+export default UrlMarker;

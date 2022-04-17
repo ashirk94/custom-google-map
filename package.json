@@ -1,6 +1,6 @@
 {
   "name": "custom-google-map",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A google map api based module that uses a custom theme and markers with info windows.",
   "main": "MapApplication.js",
   "scripts": {
@@ -19,12 +19,5 @@
     "url": "https://github.com/ashirk94/custom-google-map/issues"
   },
   "homepage": "https://github.com/ashirk94/custom-google-map#readme",
-  "dependencies": {
-    "@babel/core": "^7.17.9",
-    "babel-loader": "^8.2.4",
-    "css-loader": "^6.7.1",
-    "html-webpack-plugin": "^5.5.0",
-    "webpack": "^5.72.0",
-    "webpack-cli": "^4.9.2"
-  }
+  "dependencies": {}
 }

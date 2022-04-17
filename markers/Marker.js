@@ -89,3 +89,5 @@ const Marker = (function () {
 
 	return Marker;
 })();
+
+export default Marker;

@@ -94,3 +94,5 @@ const MapFeature = (function () {
 
 	return MapFeature;
 })();
+
+export default MapFeature;

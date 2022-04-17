@@ -28,3 +28,5 @@ const MapConfiguration = (function () {
 
 	return MapConfiguration;
 })();
+
+export default MapConfiguration;
