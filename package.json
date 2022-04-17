@@ -1,6 +1,6 @@
 {
   "name": "custom-google-map",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A google map api based module that uses a custom theme and markers with info windows.",
   "main": "MapApplication.js",
   "scripts": {
