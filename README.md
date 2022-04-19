@@ -8,6 +8,11 @@ There are also custom theme files included for customization purposes.
 * A main.js File that imports MapApplication and UrlMarker <br>
 * A config.js File that contains a Google maps api key <br>
 
+## Installing the NPM Package
+* Clone from github
+* Open the Node Package Manager Terminal
+* Enter the following command
+* ```npm run build```
 
 
 
