@@ -11,10 +11,9 @@ There are also custom theme files included for customization purposes.
 ## Installing the NPM Package
 * Clone from github
 * Open the Node Package Manager Terminal
-* Change directory to the assets folder with the following
-```cd assets/js```
-* Install the package by then running the following
-```npm i```
+* Enter the following command
+* ```npm run build```
+
 
 
 ## How to implement this package
