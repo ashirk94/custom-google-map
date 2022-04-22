@@ -1,5 +1,5 @@
-import MapConfiguration from "./MapConfiguration";
-import MapFeature from "./MapFeature";
+import MapConfiguration from "./MapConfiguration.js";
+import MapFeature from "./MapFeature.js";
 
 const MapApplication = (function () {
   const cache = [];
@@ -29,7 +29,7 @@ const MapApplication = (function () {
 
     var apiKey = this.config.apiKey;
 
-    var p = new Promise(function (resolve, reject) {
+    var p = new Promise(function (resolve) {
       let mapElement = document.createElement("script");
       mapElement.async = true;
       mapElement.defer = true;
@@ -40,8 +40,6 @@ const MapApplication = (function () {
     });
 
     var mapReady = p.then(() => {
-      // How do I extract data from the two params
-      //this.map = new google.maps.Map(document.getElementById("map"), this.config.getConfig()); // This line renders the map to the screen
       results.then(() => {
         this.map = new google.maps.Map(
           document.getElementById("map"),
@@ -85,12 +83,6 @@ const MapApplication = (function () {
       f.setMap(this);
       this.features.push(f);
     }
-  }
-  function hideFilters() {
-    document.getElementById("filters").style.display = "none";
-  }
-  function showFilters() {
-    document.getElementById("filters").style.display = "block";
   }
 
   function sortFeatureData() {
@@ -241,8 +233,6 @@ const MapApplication = (function () {
     getFeature: getFeature,
     showFeature: showFeature,
     hideFeature: hideFeature,
-    showFilters: showFilters,
-    hideFilters: hideFilters,
     loadFeatureData: loadFeatureData,
     loadFeatures: loadFeatures,
     isVisible: isVisible,
