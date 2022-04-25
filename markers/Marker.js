@@ -1,14 +1,24 @@
 const Marker = (function () {
-	/**
-	 * Marker - represent a wrapper object that 
-	 *   links a map marker to
-	 *   a related object.
-	 *  The related object is used, for example,
-	 *   to display the map marker.
-	 */
-	function Marker(data) {
-		this.relatedTo = data;
-	}
+	//standard marker, pass in an image
+    //url field is for linking to other pages
+     function Marker(data) {
+        this.data = !!data.name ? data : null;
+        this.url = !!data.markerUrl ? data.markerUrl : data;
+        this.position = !!data.position ? data.position : { lat: null, lng: null };
+
+        if (this.url === null) {
+            console.log(data);
+        }
+    }
+
+    function setPosition(position) {
+        this.position = position;
+    }
+
+
+    function setIconSize(size) {
+        this.size = { height: size.height, width: size.width };
+    }
 
 	function setIcon(icon) {
 		this.icon = icon;
@@ -30,60 +40,64 @@ const Marker = (function () {
 		this.position = pos;
 	}
 
-	function setStyle(style) {
-		if (!style) throw new Error("INVALID_DATA_ERROR: The given style is invalid.");
-		this.style = style.getVendorObject();
-	}
-
 	// Not sure what the significance of the vendor parameter is here
-	function getVendorObject(vendor) {
-		vendor = vendor || "google.maps.Marker";
+    function createMarker() {
+        // Check to see if the marker has a default size property
+        let defaultMarkerSize = !!this.size ? this.size : null;
 
-		let marker = new google.maps.Marker({
-			map: null,
-			animation: google.maps.Animation.DROP,
-			position: this.position,
-			icon: this.style
-			// icon: {
-			// 	url: "https://ocdla.s3-us-west-2.amazonaws.com/courthouse-marker-round-white-black.svg",
-			// 	scaledSize: new google.maps.Size(65, 80),
-			// },
-		});
+        let marker = new google.maps.Marker({
+            map: null,
+            animation: google.maps.Animation.DROP, // Animation options - BOUNCE & DROP
+            position: this.position,
+            icon: {
+                url: this.url || null,
+                scaledSize: !!defaultMarkerSize ? new google.maps.Size(defaultMarkerSize.height, defaultMarkerSize.width) : new google.maps.Size(30, 33)
+            },
+            title: !!defaultMarkerSize ? "Example" : null,
+            data: this.data
+        });
 
-		return marker;
-	}
+        marker.addListener("click", function () {
 
-	function addEventListener() {
-		/* Add a click event listener for the info window
-		marker.addListener("click", () => {
-			// Set up the info window when clicked
-				window.markerInfoWindow = new google.maps.InfoWindow({
-					content: this.relatedTo.getInfo()
-				});
-			window.markerInfoWindow.open(map, marker);
-		});
-			// initMapInfoWindow(marker);
-			// window.markerInfoWindow.open(map, marker);
-		});
-				
-				
-		return marker;
-		*/
-	}
+            // Close any open info windows before creating a new one
+            if (window.infoWindow !== undefined) {
+                window.infoWindow.close();
+            }
 
-	/**
-	 * Add an infoWindow to the marker.
-	 */
-	// This needs to be adjusted
-	function getInfo() {
-		return this.related.getInfo();
-	}
+            /**
+             * If the marker doesn't have data to show the user, do not open an info window
+             * 
+             */
+            if (marker.data != null) {
+                // Set up the info window when clicked
+                window.infoWindow = initInfoWindow(marker);
+                window.infoWindow.open(map, marker);
+            }
+        });
+
+        return marker;
+    }
+
+    function initInfoWindow(marker) {
+
+            return new google.maps.InfoWindow({
+                content:
+                    `<div id="infoWindow">
+                        <div>
+                            <h1 style="text-align:center;">${marker.data.name}</h1>
+                        </div>
+                    </div>`
+            });
+        }
+
 
 
 	Marker.prototype = {
 		setPosition: setPosition,
-		setStyle: setStyle,
-		getVendorObject: getVendorObject
+		createMarker: createMarker,
+        initInfoWindow: initInfoWindow,
+        setPosition: setPosition,
+        setIconSize: setIconSize
 	};
 
 

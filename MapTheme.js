@@ -4,7 +4,7 @@ const MapTheme = (function () {
         "elementType": "geometry.fill",
         "stylers": [
           {
-            "color": "#5e5e5e"
+            "color": "#b2ad7f"
           }
         ]
       },
@@ -12,7 +12,7 @@ const MapTheme = (function () {
         "elementType": "labels.text.fill",
         "stylers": [
           {
-            "color": "#ccaa39"
+            "color": "#01070e"
           }
         ]
       },
@@ -20,7 +20,7 @@ const MapTheme = (function () {
         "elementType": "labels.text.stroke",
         "stylers": [
           {
-            "color": "#ccaa39"
+            "color": "#077821"
           },
           {
             "lightness": -30
@@ -62,7 +62,7 @@ const MapTheme = (function () {
         "elementType": "labels.text.fill",
         "stylers": [
           {
-            "color": "#757575"
+            "color": "#077821"
           }
         ]
       },
@@ -217,7 +217,7 @@ const MapTheme = (function () {
         "elementType": "geometry",
         "stylers": [
           {
-            "color": "#2c364e"
+            "color": "#4396f4"
           }
         ]
       }
@@ -227,7 +227,7 @@ const MapTheme = (function () {
     function MapTheme() { }
 
     var prototype = {
-        getTheme: function () { return CUSTOM_THEME; }
+        theme: function() { return CUSTOM_THEME; }
     };
     MapTheme.prototype = prototype;
 

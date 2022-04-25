@@ -1,15 +1,19 @@
+import MapTheme from '../MapTheme.js';
+
+const mapTheme = new MapTheme;
+
 const mapKey = Keys.mapKey;
 
-const ocdlaInfoWindow = {
+const InfoWindow = {
   content: `
-        <h1>OCDLA</h1>
+        <h1>Info</h1>
     `,
 };
 
 // Starting/default position for the center of the map (Vancouver, WA)
 const startingMapPosition = {
-  latitude: 44.04457,
-  longitude: -123.09078,
+    latitude: 41.9028,
+    longitude: 12.4964,
 };
 
 // Set up a MapConfiguration object
@@ -19,6 +23,7 @@ const config = {
   //repository: repository, // Where to get data consumed by the Map.
   mapOptions: {
     zoom: 6,
+    styles: mapTheme.theme(),
     center: {
       lat: startingMapPosition.latitude,
       lng: startingMapPosition.longitude,
@@ -27,53 +32,32 @@ const config = {
     defaultMarkerStyles: {
       icon: {
         scaledSize: {
-          height: 70,
-          width: 80,
+          height: 50,
+          width: 50,
         },
       },
     },
-    ocdlaInfoWindow: ocdlaInfoWindow,
   },
   enableHighAccuracy: true,
 };
 
-/*
-	  memberTypes = "null", A", "N", "R", "S", "L", "LL",
-	null = Academic Members (typically law students),
-	A = Admin/Exec/Private Investigator (licensed)
-	N = NonLawyer (Professional Member)
-	R = Regular Members (practicing lawyers)
-	S = Sustaining Members (paid extra fee for annual perks)
-	L = Lifetime Members (paid extra fee for lifetime membership)
-	LL = Law Library (could have a membership)
-*/
-// This config is used to assist sorting all members into each perspective feature (feature.name.data)
 const featureLabelConfig = {
-  null: "academic",
-  N: "nonlawyer",
-  R: "regular",
-  S: "sustaining",
-  L: "lifetime",
-  H: "honored",
-  W: "expertWitness",
+  E: "example",
 };
 
 const cache = [];
 
-//By placing document.getElementById("toolbarOptions").style.display="block"; in the last fetch call you will not load the filters until the data is loaded
 const mapinit = [
-  function() {
-    cache["examples"] = Promise.resolve({ "hello": "world", "foo": "bar" });
+  function () {
+    cache["examples"] = Promise.resolve({ hello: "world", foo: "bar" });
   },
 ];
 
-
 //populates features with data
-function populateData()
-{
+function populateData() {
   $examples = cache["examples"];
 
-    return $examples;
+  return $examples;
 }
 
 //custom datasources
@@ -88,3 +72,5 @@ const features = {
     datasource: populateData,
   },
 };
+
+export { config, mapinit };

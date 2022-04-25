@@ -214,8 +214,8 @@ const MapApplication = (function () {
       let marker = markers[i];
       if (null == marker.position.lat && null == marker.position.lng) {
         marker.setPosition(this.defaultMarkerCoordinates);
-        marker.setIconSize(this.defaultMarkerSize);
       }
+      marker.setIconSize(this.defaultMarkerSize);
       marker.createMarker().setMap(this.map);
     }
   }

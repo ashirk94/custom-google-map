@@ -20,7 +20,7 @@ const UrlMarker = (function () {
         this.size = { height: size.height, width: size.width };
     }
 
-    //TODO: Change function name to createGoogleMapsMarker
+
     function createMarker() {
         // Check to see if the marker has a default size property
         let defaultMarkerSize = !!this.size ? this.size : null;
@@ -62,13 +62,16 @@ const UrlMarker = (function () {
     function initInfoWindow(marker) {
 
         // Check the marker type (contact or court)
-        if (marker.name != undefined) {
+        if (marker.type == "Member") {
             // Info window for contact marker, showing marker details
             return new google.maps.InfoWindow({
                 content:
                     `<div id="infoWindow">
                         <div>
                             <label style="text-align:center;"><b>${marker.name || ""}</b></label><br><br>
+                        </div>
+                        <div>
+                        <label>${marker.primary || ""}</label><br>
                         </div>
                         <div>
                             <label>${marker.phone || ""}</label><br>
@@ -89,10 +92,14 @@ const UrlMarker = (function () {
             content:
                 `<div id="infoWindow" style="text-align:center;">
                     <div>
-                        <strong><label style="text-align:center;">${marker.courtName}</label><br></strong>
+                        <strong><label style="text-align:center;">${marker.name}</label><br></strong>
                     </div>
                     <div>
-                        <label>${marker.streetAddress}</label><br>
+                     Court info not yet implemented
+                    </div>
+                    <!--
+                    <div>
+                        <label>${marker.mailingAddress}</label><br>
                         <label>${marker.city}, ${marker.state} ${marker.zipcode}</label><br>
                     </div><br>  
                     <div>
@@ -100,6 +107,7 @@ const UrlMarker = (function () {
                             <a href="https://${marker.website}">${marker.website}</a>   
                         </label>
                     </div> 
+                    -->
                 </div>`
         });
 
