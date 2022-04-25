@@ -152,7 +152,12 @@ const MapApplication = (function () {
     }
     f.render(this.map);
   }
-
+  function hideFilters() {
+    document.getElementById("filters").style.display = "none";
+  }
+  function showFilters() {
+    document.getElementById("filters").style.display = "block";
+  }
   /**
    * Hide keeps the data and the feature is still yet initialized.
    */
@@ -237,6 +242,8 @@ const MapApplication = (function () {
     loadFeatures: loadFeatures,
     isVisible: isVisible,
     render: render,
+    hideFilters: hideFilters,
+    showFilters: showFilters
   };
   MapApplication.prototype = prototype;
 
