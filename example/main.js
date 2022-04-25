@@ -3,7 +3,7 @@
  */
 
 import MapApplication from "../MapApplication.js";
-import Marker from "../markers/Marker.js";
+import Marker from "./Marker.js";
 import { config, mapinit } from "./config.js";
 
 // Instantiate the app and pass in the mapConfig obj
