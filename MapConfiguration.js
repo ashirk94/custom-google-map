@@ -3,8 +3,6 @@ const MapConfiguration = (function () {
 
 	function MapConfiguration(initial) {
 		this.apiKey = initial.apiKey;
-		this.target = initial.target;
-		this.repository = initial.repository;
 		this.mapOptions = initial.mapOptions;
 		this.enableHighAccuracy = initial.enableHighAccuracy;
 	}

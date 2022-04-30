@@ -1,11 +1,12 @@
-import UrlMarker from "../../UrlMarker.js";
+import Marker from "./Marker.js";
 
+//count of markers is the amount of available data
 const MapFeature = (function () {
   function MapFeature(feature) {
     this.isInitialized = false;
     this.name = feature.name;
     this.label = feature.label;
-    this.data = feature.data || [];
+    this.data = feature.data;
     this.markers = [];
     this.markerStyle = feature.markerStyle;
     this.status = feature.status;
@@ -50,25 +51,24 @@ const MapFeature = (function () {
   }
 
   function loadMarkers() {
+      //console.log(this.data);
     return this.data.then((sources) => {
       let errors = [];
 
-      for (let i = 0; i < sources.length; i++) {
         // Get the dataset
-        let item = sources[i];
-        let label = this.getLabel();
-        if (item.position.lat == null) continue;
-
+        let item = sources;
+        console.log(item);
+        
         // Set the source for the marker URL
-        item.markerUrl = this.markerStyle;
+        //item.markerUrl = this.markerStyle;
 
-        let urlMarker = new UrlMarker(item);
-        let googleMarker = urlMarker.createMarker();
+        let marker = new Marker(item);
+        let newMarker = marker.createMarker();
+        console.log(newMarker);
 
         //Push the new marker to the marker array
 
-        this.markers.push(googleMarker);
-      }
+        this.markers.push(newMarker);
     });
   }
 

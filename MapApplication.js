@@ -5,13 +5,12 @@ const MapApplication = (function () {
   const cache = [];
 
   function MapApplication(conf) {
-    this.repo = conf.repository;
     this.config = new MapConfiguration(conf);
     this.features = []; // array of MapFeature objects.
     this.map = null;
     this.defaultMarkerCoordinates = this.config.mapOptions.center;
-    this.defaultMarkerSize =
-      this.config.mapOptions.defaultMarkerStyles.icon.scaledSize;
+    this.defaultMarkerSize = this.config.mapOptions.defaultMarkerStyles.icon.scaledSize;
+    this.getFeature = this.getFeature.bind(this);
   }
 
   // Set up the maps script and initialize the map object
@@ -62,10 +61,10 @@ const MapApplication = (function () {
   // This gets called during startup
   // Loads in the data for each feature
   // Does not initialize all features, just prepares the data for each feature
-  function loadFeatureData() {
-    for (var MapFeature in this.features) {
+  function loadFeatureData(features) {
+    for (let i = 0; i < features.length; i++) {
       // Set up the new feature
-      let feature = this.features[MapFeature];
+      let feature = features[i];
       //load markers after data, awaiting
       feature.loadData().then(() => feature.loadMarkers());
       feature.isInitialized = true;
@@ -76,10 +75,12 @@ const MapApplication = (function () {
    * Set up each feature, then call loadFeatureData()
    *  to set up data for each feature
    */
-  function loadFeatures(config) {
-    for (var name in config) {
+  function loadFeatures(features) {
+      console.log(features);
+    for (let i = 0; i < features.length; i++) {
       // Set up the new feature
-      let f = new MapFeature(config[name]);
+      console.log(example);
+      let f = new MapFeature(config[example]);
       f.setMap(this);
       this.features.push(f);
     }
@@ -172,7 +173,8 @@ const MapApplication = (function () {
   }
 
   function getFeature(name) {
-    return this.features.find((feature) => feature.name == name);
+   let feature = this.features.find((feature) => feature.name == name);
+   return feature;
   }
 
   // Hide multiple features, i.e., all of this map's features.
@@ -220,10 +222,12 @@ const MapApplication = (function () {
       if (null == marker.position.lat && null == marker.position.lng) {
         marker.setPosition(this.defaultMarkerCoordinates);
       }
+
       marker.setIconSize(this.defaultMarkerSize);
       marker.createMarker().setMap(this.map);
     }
   }
+
 
   var prototype = {
     init: init,

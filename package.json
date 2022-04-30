@@ -4,7 +4,7 @@
   "description": "A google map api based module that uses a custom theme and markers with info windows.",
   "main": "MapApplication.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodemon server.js --prefix ./example"
   },
   "repository": {
     "type": "git",
