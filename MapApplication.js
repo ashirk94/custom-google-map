@@ -5,13 +5,12 @@ const MapApplication = (function () {
   const cache = [];
 
   function MapApplication(conf) {
-    this.repo = conf.repository;
     this.config = new MapConfiguration(conf);
     this.features = []; // array of MapFeature objects.
     this.map = null;
     this.defaultMarkerCoordinates = this.config.mapOptions.center;
-    this.defaultMarkerSize =
-      this.config.mapOptions.defaultMarkerStyles.icon.scaledSize;
+    this.defaultMarkerSize = this.config.mapOptions.defaultMarkerStyles.icon.scaledSize;
+    this.getFeature = this.getFeature.bind(this);
   }
 
   // Set up the maps script and initialize the map object
@@ -71,11 +70,25 @@ const MapApplication = (function () {
       feature.isInitialized = true;
     }
   }
-
+  function addFeature(f) {
+    f.setMap(this);
+    this.features.push(f);
+  }
   /**
    * Set up each feature, then call loadFeatureData()
    *  to set up data for each feature
    */
+//   function loadFeatures(features) {
+//       console.log(features);
+//     for (let i = 0; i < features.length; i++) {
+//       // Set up the new feature
+//       console.log(config.example);
+//       let f = new MapFeature(config.example);
+//       f.isInitialized = true;
+//       f.setMap(this.map);
+//       this.features.push(f);
+//     }
+//   }
   function loadFeatures(config) {
     for (var name in config) {
       // Set up the new feature
@@ -83,6 +96,10 @@ const MapApplication = (function () {
       f.setMap(this);
       this.features.push(f);
     }
+  }
+  function addFeature(f) {
+    f.setMap(this);
+    this.features.push(f);
   }
 
   function sortFeatureData() {
@@ -129,10 +146,6 @@ const MapApplication = (function () {
     return false;
   }
 
-  function addFeature(feature, callout) {
-    callout = callout || this.repository.from;
-    this.features.push(feature);
-  }
 
   function removeFeature(feature) {
     // Remove something from this.features.
@@ -143,18 +156,19 @@ const MapApplication = (function () {
   /**
    * Render any number of map features, layers, geometry or markers.
    */
-  function showFeature(name) {
-    let f = this.getFeature(name);
 
-    if (!f) {
+  function showFeature(name) {
+    let feature = this.getFeature(name);
+
+    if (!feature) {
       console.error("Could not locate Feature, ", name);
       return;
     }
-    f.render(this.map);
+    feature.render(this.map);
   }
-  function hideFilters() {
+   function hideFilters() {
     document.getElementById("filters").style.display = "none";
-  }
+   }
   function showFilters() {
     document.getElementById("filters").style.display = "block";
   }
@@ -172,7 +186,8 @@ const MapApplication = (function () {
   }
 
   function getFeature(name) {
-    return this.features.find((feature) => feature.name == name);
+   let feature = this.features.find((feature) => feature.name == name);
+   return feature;
   }
 
   // Hide multiple features, i.e., all of this map's features.
@@ -225,6 +240,7 @@ const MapApplication = (function () {
     }
   }
 
+
   var prototype = {
     init: init,
     replay: replay,
@@ -243,7 +259,8 @@ const MapApplication = (function () {
     isVisible: isVisible,
     render: render,
     hideFilters: hideFilters,
-    showFilters: showFilters
+    showFilters: showFilters,
+    addFeature: addFeature
   };
   MapApplication.prototype = prototype;
 

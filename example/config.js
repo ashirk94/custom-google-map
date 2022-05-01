@@ -1,6 +1,6 @@
-import MapTheme from '../MapTheme.js';
+import MapTheme from "../MapTheme.js";
 
-const mapTheme = new MapTheme;
+const mapTheme = new MapTheme();
 
 const mapKey = Keys.mapKey;
 
@@ -10,17 +10,16 @@ const InfoWindow = {
     `,
 };
 
-// Starting/default position for the center of the map (Vancouver, WA)
+// Starting/default position for the center of the map
 const startingMapPosition = {
-    latitude: 41.9028,
-    longitude: 12.4964,
+  latitude: 41.9028,
+  longitude: 12.4964,
 };
 
 // Set up a MapConfiguration object
 const config = {
   apiKey: mapKey,
   target: "map",
-  //repository: repository, // Where to get data consumed by the Map.
   mapOptions: {
     zoom: 6,
     styles: mapTheme.theme(),
@@ -28,7 +27,6 @@ const config = {
       lat: startingMapPosition.latitude,
       lng: startingMapPosition.longitude,
     },
-    //styles: startTheme.getTheme(),
     defaultMarkerStyles: {
       icon: {
         scaledSize: {
@@ -41,36 +39,39 @@ const config = {
   enableHighAccuracy: true,
 };
 
-const featureLabelConfig = {
-  E: "example",
-};
-
 const cache = [];
 
 const mapinit = [
   function () {
-    cache["examples"] = Promise.resolve({ hello: "world", foo: "bar" });
+    cache[0] = fetch("http://localhost:5000/data").then((resp) => {
+      return resp.json();
+    });
   },
 ];
 
 //populates features with data
 function populateData() {
-  $examples = cache["examples"];
+  let examples = cache[0];
+  //console.log(examples);
 
-  return $examples;
+  let stuff = examples.then((results) => {
+    results.map((example) => {
+      return example;
+    });
+    console.log(stuff);
+  });
+  return stuff;
 }
 
 //custom datasources
 const features = {
-  example: {
+    example: {
     name: "example",
-    label: "example",
-    markerLabel: "E",
+    type: "example",
     data: [],
-    status: "E",
-    markerStyle: "./marker.png",
-    datasource: populateData,
-  },
+    markerStyle: "./map-pin.png",
+    datasource: null,
+  }
 };
 
-export { config, mapinit };
+export { config, mapinit, features };

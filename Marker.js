@@ -36,11 +36,6 @@ const Marker = (function () {
 		this.color = color;
 	}
 
-	function setPosition(pos) {
-		this.position = pos;
-	}
-
-	// Not sure what the significance of the vendor parameter is here
     function createMarker() {
         // Check to see if the marker has a default size property
         let defaultMarkerSize = !!this.size ? this.size : null;
