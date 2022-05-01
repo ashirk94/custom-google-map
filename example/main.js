@@ -1,64 +1,38 @@
-/*
- * Example Implementation of the custom google map
+/**
+ * Main entry point to initialize a MapApplication.
+ *
+ * This example uses a data source from a web api
  */
-
-//fetch dataobjects for map feature from port 5000
-
-import MapApplication from "../MapApplication.js";
-import Marker from "../Marker.js";
 import { config, mapinit, features } from "./config.js";
+import MapApplication from "../MapApplication.js";
+import MapFeature from "../MapFeature.js";
 
 // Instantiate the app and pass in the mapConfig obj
-const myMap = new MapApplication(config);
+window.myMap = new MapApplication(config);
 
+//ad hoc feature
+let feature = new MapFeature(features.example);
+
+myMap.addFeature(feature);
 // Render the map to the page
-
+// After the map finished initializing, get data
+let objects = () => {
+  let objs = fetch("http://localhost:5000/data").then((resp) => {
+    return resp.json();
+  });
+  return objs;
+};
 myMap.init(mapinit).then(function () {
-  //marker images
-  //   let redIcon = "./Map-Marker.png";
-  //   let blueIcon = "./map-pin.png";
-  // //sample markers
-  //   let rome = { name: "Rome", markerUrl: blueIcon };
-  //   let athens = { name: "Athens", markerUrl: redIcon };
-  //   let bucharest = { name: "Bucharest", markerUrl: blueIcon };
-  //   let toulouse = { name: "Toulouse", markerUrl: blueIcon };
-  //   let algiers = { name: "Algiers", markerUrl: redIcon };
+  feature.setDatasource(objects);
 
-  //   //create markers
-  //   let m1 = new Marker(rome);
-  //   let m2 = new Marker(athens);
-  //   let m3 = new Marker(toulouse);
-  //   let m4 = new Marker(bucharest);
-  //   let m5 = new Marker(algiers);
+  // Load the feature's data.
+  feature.loadData();
 
-  //   m2.setPosition({
-  //     lat: 37.9838,
-  //     lng: 23.7275,
-  //   });
-
-  //   m3.setPosition({
-  //     lat: 43.6047,
-  //     lng: 1.4442,
-  //   });
-
-  //   m4.setPosition({
-  //     lat: 44.4268,
-  //     lng: 26.1025,
-  //   });
-
-  //   m5.setPosition({
-  //     lat: 36.7538,
-  //     lng: 3.0588,
-  //   });
-
-  //   let markers = [m1, m2, m3, m4, m5];
-
-  //myMap.render(markers);
-
-  myMap.loadFeatures(features.example);
-  myMap.loadFeatureData(features.example);
-  console.log(features.example);
-  myMap.showFeature(features.example);
+  // Load the feature's markers.
+  feature.loadMarkers().then(function () {
+    //console.log("Markers loaded");
+    myMap.showFeature(feature.name);
+  });
 });
 
-export default myMap;
+export default null;

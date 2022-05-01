@@ -65,12 +65,12 @@ function populateData() {
 
 //custom datasources
 const features = {
-  example: {
+    example: {
     name: "example",
     type: "example",
     data: [],
-    markerStyle: "./example/map-pin.png",
-    datasource: populateData,
+    markerStyle: "./map-pin.png",
+    datasource: null,
   }
 };
 

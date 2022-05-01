@@ -49,26 +49,30 @@ const MapFeature = (function () {
   function getMarkers() {
     return this.markers;
   }
+  function setDatasource(source) {
+    this.datasource = source;
+  }
 
   function loadMarkers() {
-      //console.log(this.data);
     return this.data.then((sources) => {
       let errors = [];
 
+      for (let i = 0; i < sources.length; i++) {
         // Get the dataset
-        let item = sources;
-        console.log(item);
-        
-        // Set the source for the marker URL
-        //item.markerUrl = this.markerStyle;
+        let item = sources[i];
+        let label = this.getLabel();
+        if (item.position.lat == null) continue;
 
-        let marker = new Marker(item);
-        let newMarker = marker.createMarker();
-        console.log(newMarker);
+        // Set the source for the marker URL
+        item.markerUrl = this.markerStyle;
+
+        let urlMarker = new Marker(item);
+        let googleMarker = urlMarker.createMarker();
 
         //Push the new marker to the marker array
 
-        this.markers.push(newMarker);
+        this.markers.push(googleMarker);
+      }
     });
   }
 
@@ -85,6 +89,7 @@ const MapFeature = (function () {
     render: render,
     hide: hide,
     initialize: initialize,
+    setDatasource: setDatasource
   };
 
   MapFeature.prototype = prototype;
