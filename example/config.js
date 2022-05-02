@@ -4,12 +4,6 @@ const mapTheme = new MapTheme();
 
 const mapKey = Keys.mapKey;
 
-const InfoWindow = {
-  content: `
-        <h1>Info</h1>
-    `,
-};
-
 // Starting/default position for the center of the map
 const startingMapPosition = {
   latitude: 41.9028,
@@ -48,20 +42,6 @@ const mapinit = [
     });
   },
 ];
-
-//populates features with data
-function populateData() {
-  let examples = cache[0];
-  //console.log(examples);
-
-  let stuff = examples.then((results) => {
-    results.map((example) => {
-      return example;
-    });
-    console.log(stuff);
-  });
-  return stuff;
-}
 
 //custom datasources
 const features = {

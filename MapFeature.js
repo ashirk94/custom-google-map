@@ -1,4 +1,4 @@
-import Marker from "./Marker.js";
+import UrlMarker from "../../UrlMarker.js";
 
 //count of markers is the amount of available data
 const MapFeature = (function () {

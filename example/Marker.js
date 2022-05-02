@@ -1,3 +1,4 @@
+//example marker
 const Marker = (function () {
 	//standard marker, pass in an image
     //url field is for linking to other pages
