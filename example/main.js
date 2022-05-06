@@ -10,7 +10,7 @@ import MapFeature from "../MapFeature.js";
 // Instantiate the app and pass in the mapConfig obj
 window.myMap = new MapApplication(config);
 
-//ad hoc feature
+//example feature
 let feature = new MapFeature(features.example);
 
 myMap.addFeature(feature);

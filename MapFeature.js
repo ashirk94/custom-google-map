@@ -1,4 +1,4 @@
-import UrlMarker from "../../UrlMarker.js";
+import Marker from "./Marker.js";
 
 //count of markers is the amount of available data
 const MapFeature = (function () {
@@ -66,12 +66,12 @@ const MapFeature = (function () {
         // Set the source for the marker URL
         item.markerUrl = this.markerStyle;
 
-        let urlMarker = new Marker(item);
-        let googleMarker = urlMarker.createMarker();
+        let marker = new Marker(item);
+        let customMarker = marker.createMarker();
 
         //Push the new marker to the marker array
 
-        this.markers.push(googleMarker);
+        this.markers.push(customMarker);
       }
     });
   }
