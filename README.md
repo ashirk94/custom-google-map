@@ -12,11 +12,7 @@ There are also custom theme files included for customization purposes.
 * Clone from GitHub
 * In the terminal run: ```npm run build```
 
-## Displaying the Map
-## Map Styling
 ## Map Marker Features
-## Marker Data Sources
-## Map Event Handling
 
 Create a config.js file in your project that contains a list of "Features" objects to be passed to the MapApplication.js file in the package.
 LoadFeatures and LoadFeatureData will be called from main to populate these objects with data and the loadMarkers function will generate the object markers on the map based on these objects.
