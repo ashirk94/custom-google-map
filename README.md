@@ -1,7 +1,5 @@
-# Overview
-A google map api based module that uses a custom theme and markers with info windows.
-The package contains a series of javascript files that allows custom data to be added to the google maps api map.
-There are also custom theme files included for customization purposes.
+## Overview
+A series of classes that make customization of a Google Maps API map simple and straightforward.
 
 ## What you need to implement this package
 
@@ -11,11 +9,11 @@ There are also custom theme files included for customization purposes.
 
 ## Map Marker Features
 
-Create a config.js file in your project that contains a list of "Features" objects to be passed to the MapApplication.js file in the package.
+Create a config.js file in your project that contains a list of "features" objects to be passed to the MapApplication.js file in the package.
 LoadFeatures and LoadFeatureData will be called from main to populate these objects with data and the loadMarkers function will generate the object markers on the map based on these objects.
 
-Config should contain a const MapInit array that has multiple functions that fetches the json data and places it into the "Cache" Array at a designated index.
-This array and all of its functions are passed through main to mapApplication.
+Config should contain a const MapInit array that has multiple functions that fetch the json data and copies it to the "cache" Array at a designated index.
+This array and all of its functions are passed through main to MapApplication.
 The MapInit should look similar to the following:
 ```
 const mapinit = [
@@ -66,7 +64,7 @@ const features = {
   ### Example Main.js
   
   ```
-  import MapApplication from './node_modules/custom-google-map/MapApplication.js';
+import MapApplication from './node_modules/custom-google-map/MapApplication.js';
 import Marker from './node_modules/custom-google-map/markers/Marker';
 
 
