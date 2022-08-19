@@ -4,13 +4,10 @@ The package contains a series of javascript files that allows custom data to be 
 There are also custom theme files included for customization purposes.
 
 ## What you need to implement this package
-* JSON data from a web API / Database backend <br>
-* A main.js File that imports MapApplication and UrlMarker <br>
-* A config.js File that contains a Google maps api key <br>
 
-## Installation
-* Clone from GitHub
-* In the terminal run: ```npm run build```
+* A main.js File that imports MapApplication and Marker <br>
+* A config.js File that contains a Google Map API key <br>
+* JSON data source (optional) <br>
 
 ## Map Marker Features
 
@@ -70,7 +67,7 @@ const features = {
   
   ```
   import MapApplication from './node_modules/custom-google-map/MapApplication.js';
-import UrlMarker from './node_modules/custom-google-map/markers/UrlMarker';
+import Marker from './node_modules/custom-google-map/markers/Marker';
 
 
 // Instantiate the app and pass in the Config
