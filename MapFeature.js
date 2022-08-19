@@ -1,100 +1,84 @@
-import Marker from "./Marker.js";
+import Marker from './Marker.js'
 
 //count of markers is the amount of available data
-const MapFeature = (function () {
-  function MapFeature(feature) {
-    this.isInitialized = false;
-    this.name = feature.name;
-    this.label = feature.label;
-    this.data = feature.data;
-    this.markers = [];
-    this.markerStyle = feature.markerStyle;
-    this.status = feature.status;
-    this.datasource = feature.datasource && feature.datasource.bind(this);
-  }
+class MapFeature {
+	constructor(feature) {
+		this.isInitialized = false
+		this.name = feature.name
+		this.label = feature.label
+		this.data = feature.data
+		this.markers = []
+		this.markerStyle = feature.markerStyle
+		this.status = feature.status
+		this.datasource = feature.datasource && feature.datasource.bind(this)
+	}
 
-  function setMap(map) {
-    this.map = map;
-  }
-  /*
-   * Consistently returns Promises for use with .then().
-   */
-  function loadData() {
-    this.data = this.datasource();
-    return this.data;
-  }
+	setMap(map) {
+		this.map = map
+	}
+	/*
+	 * Consistently returns Promises for use with .then().
+	 */
+	loadData() {
+		this.data = this.datasource()
+		return this.data
+	}
 
-  function initialize() {
-    this.isInitialized = true;
-    this.loadData();
-    this.markers = this.loadMarkers();
-  }
+	initialize() {
+		this.isInitialized = true
+		this.loadData()
+		this.markers = this.loadMarkers()
+	}
 
-  function render(targetMap) {
-    this.markers.forEach(function (marker) {
-      marker.setMap(targetMap);
-    });
-  }
+	render(targetMap) {
+		this.markers.forEach(function (marker) {
+			marker.setMap(targetMap)
+		})
+	}
 
-  function clone() {
-    return new MapFeature(this.config);
-  }
+	clone() {
+		return new MapFeature(this.config)
+	}
 
-  function hide() {
-    this.markers.forEach(function (marker) {
-      marker.setMap(null);
-    });
-  }
+	hide() {
+		this.markers.forEach(function (marker) {
+			marker.setMap(null)
+		})
+	}
 
-  function getMarkers() {
-    return this.markers;
-  }
-  function setDatasource(source) {
-    this.datasource = source;
-  }
+	getMarkers() {
+		return this.markers
+	}
+	setDatasource(source) {
+		this.datasource = source
+	}
 
-  function loadMarkers() {
-    return this.data.then((sources) => {
-      let errors = [];
+	loadMarkers() {
+		return this.data.then((sources) => {
+			let errors = []
 
-      for (let i = 0; i < sources.length; i++) {
-        // Get the dataset
-        let item = sources[i];
-        let label = this.getLabel();
-        if (item.position.lat == null) continue;
+			for (let i = 0; i < sources.length; i++) {
+				// Get the dataset
+				let item = sources[i]
+				let label = this.getLabel()
+				if (item.position.lat == null) continue
 
-        // Set the source for the marker URL
-        item.markerUrl = this.markerStyle;
+				// Set the source for the marker URL
+				item.markerUrl = this.markerStyle
 
-        let marker = new Marker(item);
-        let customMarker = marker.createMarker();
+				let marker = new Marker(item)
+				let customMarker = marker.createMarker()
 
-        //Push the new marker to the marker array
+				//Push the new marker to the marker array
 
-        this.markers.push(customMarker);
-      }
-    });
-  }
+				this.markers.push(customMarker)
+			}
+		})
+	}
 
-  function getLabel() {
-    return this.markerLabel;
-  }
+	getLabel() {
+		return this.markerLabel
+	}
+}
 
-  var prototype = {
-    loadData: loadData,
-    loadMarkers: loadMarkers,
-    getLabel: getLabel,
-    setMap: setMap,
-    getMarkers: getMarkers,
-    render: render,
-    hide: hide,
-    initialize: initialize,
-    setDatasource: setDatasource
-  };
-
-  MapFeature.prototype = prototype;
-
-  return MapFeature;
-})();
-
-export default MapFeature;
+export default MapFeature

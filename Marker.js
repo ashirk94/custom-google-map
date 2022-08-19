@@ -1,103 +1,93 @@
 //example marker
-const Marker = (function () {
+class Marker {
 	//standard marker, pass in an image
-    //url field is for linking to other pages
-     function Marker(data) {
-        this.data = !!data.name ? data : null;
-        this.url = !!data.markerUrl ? data.markerUrl : data;
-        this.position = !!data.position ? data.position : { lat: null, lng: null };
+	//url field is for linking to other pages
+	constructor(data) {
+		this.data = !!data.name ? data : null
+		this.url = !!data.markerUrl ? data.markerUrl : data
+		this.position = !!data.position
+			? data.position
+			: { lat: null, lng: null }
 
-        if (this.url === null) {
-            console.log(data);
-        }
-    }
-
-    function setPosition(position) {
-        this.position = position;
-    }
-
-
-    function setIconSize(size) {
-        this.size = { height: size.height, width: size.width };
-    }
-
-	function setIcon(icon) {
-		this.icon = icon;
+		if (this.url === null) {
+			console.log(data)
+		}
 	}
 
-	function setLabel(label) {
-		this.label = label;
+	setPosition(position) {
+		this.position = position
 	}
 
-	function setRelated(obj) {
-		this.relatedTo = obj;
+	setIconSize(size) {
+		this.size = { height: size.height, width: size.width }
 	}
 
-	function setColor(color) {
-		this.color = color;
+	setIcon(icon) {
+		this.icon = icon
 	}
 
-    function createMarker() {
-        // Check to see if the marker has a default size property
-        let defaultMarkerSize = !!this.size ? this.size : null;
+	setLabel(label) {
+		this.label = label
+	}
 
-        let marker = new google.maps.Marker({
-            map: null,
-            animation: google.maps.Animation.DROP, // Animation options - BOUNCE & DROP
-            position: this.position,
-            icon: {
-                url: this.url || null,
-                scaledSize: !!defaultMarkerSize ? new google.maps.Size(defaultMarkerSize.height, defaultMarkerSize.width) : new google.maps.Size(30, 33)
-            },
-            title: !!defaultMarkerSize ? "Example" : null,
-            data: this.data
-        });
+	setRelated(obj) {
+		this.relatedTo = obj
+	}
 
-        marker.addListener("click", function () {
+	setColor(color) {
+		this.color = color
+	}
 
-            // Close any open info windows before creating a new one
-            if (window.infoWindow !== undefined) {
-                window.infoWindow.close();
-            }
+	createMarker() {
+		// Check to see if the marker has a default size property
+		let defaultMarkerSize = !!this.size ? this.size : null
 
-            /**
-             * If the marker doesn't have data to show the user, do not open an info window
-             * 
-             */
-            if (marker.data != null) {
-                // Set up the info window when clicked
-                window.infoWindow = initInfoWindow(marker);
-                window.infoWindow.open(map, marker);
-            }
-        });
+		let marker = new google.maps.Marker({
+			map: null,
+			animation: google.maps.Animation.DROP, // Animation options - BOUNCE & DROP
+			position: this.position,
+			icon: {
+				url: this.url || null,
+				scaledSize: !!defaultMarkerSize
+					? new google.maps.Size(
+							defaultMarkerSize.height,
+							defaultMarkerSize.width
+					  )
+					: new google.maps.Size(30, 33)
+			},
+			title: !!defaultMarkerSize ? 'Example' : null,
+			data: this.data
+		})
 
-        return marker;
-    }
+		marker.addListener('click', function () {
+			// Close any open info windows before creating a new one
+			if (window.infoWindow !== undefined) {
+				window.infoWindow.close()
+			}
 
-    function initInfoWindow(marker) {
+			/**
+			 * If the marker doesn't have data to show the user, do not open an info window
+			 *
+			 */
+			if (marker.data != null) {
+				// Set up the info window when clicked
+				window.infoWindow = initInfoWindow(marker)
+				window.infoWindow.open(map, marker)
+			}
+		})
 
-            return new google.maps.InfoWindow({
-                content:
-                    `<div id="infoWindow">
+		return marker
+	}
+
+	initInfoWindow(marker) {
+		return new google.maps.InfoWindow({
+			content: `<div id="infoWindow">
                         <div>
                             <h1 style="text-align:center;">${marker.data.name}</h1>
                         </div>
                     </div>`
-            });
-        }
+		})
+	}
+}
 
-
-
-	Marker.prototype = {
-		setPosition: setPosition,
-		createMarker: createMarker,
-        initInfoWindow: initInfoWindow,
-        setPosition: setPosition,
-        setIconSize: setIconSize
-	};
-
-
-	return Marker;
-})();
-
-export default Marker;
+export default Marker
