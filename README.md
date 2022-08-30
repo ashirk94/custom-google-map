@@ -3,8 +3,8 @@ A series of classes that make customization of a Google Maps API map simple and 
 
 ## What you need to implement this package
 
-* A main.js File that imports MapApplication and Marker <br>
-* A config.js File that contains a Google Map API key <br>
+* A main.js file that imports MapApplication and Marker <br>
+* A config.js file that contains a Google Maps API key <br>
 * JSON data source (optional) <br>
 
 ## Map Marker Features
